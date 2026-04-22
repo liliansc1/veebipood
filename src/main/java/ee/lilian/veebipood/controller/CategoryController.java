@@ -18,6 +18,9 @@ public class CategoryController {
         return categoryRepository.findAll();
     }
 
+    // TODO: CATEGORIES/ADMIN -> kuvatakse koik kategoooriad
+    // ctegories -> kuvatakse vaid kategooriad millel on toode
+
     @DeleteMapping("categories/{id}")
     public List<Category> deleteCategory(@PathVariable Long id){
         categoryRepository.deleteById(id); //kustutan

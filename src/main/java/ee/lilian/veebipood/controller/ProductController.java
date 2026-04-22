@@ -2,7 +2,10 @@ package ee.lilian.veebipood.controller;
 
 import ee.lilian.veebipood.entity.Product;
 import ee.lilian.veebipood.repository.ProductRepository;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +22,16 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @GetMapping("products")
-    public List<Product> getProducts(){
+    public Page<@NonNull Product> getProducts(Pageable pageable, @RequestParam Long activeCategoryId){
+        if (activeCategoryId==null || activeCategoryId==0) {
+          return productRepository.findAll(pageable);
+        } else {
+          return productRepository.findAllByCategoryId(pageable,activeCategoryId);
+        }
+    }
+
+    @GetMapping("products/admin")
+    public List<Product> getAdminProducts(Pageable pageable){
         return productRepository.findAll();
     }
 
@@ -27,7 +39,6 @@ public class ProductController {
     public Product getOneProduct(@PathVariable Long id){
         return productRepository.findById(id).orElseThrow();
     }
-
 
     @DeleteMapping("products/{id}")
     public List<Product> deleteProduct(@PathVariable Long id){
