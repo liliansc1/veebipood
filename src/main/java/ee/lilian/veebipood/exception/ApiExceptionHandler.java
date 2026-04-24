@@ -23,7 +23,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<ErrorMessage> handleException(MissingServletRequestParameterException ex){
         ErrorMessage errorMessage = new ErrorMessage();
-        errorMessage.setMessage("Parameeter paringus puudu" + ex.getMessage());
+        errorMessage.setMessage("Parameeter päringus puudu" + ex.getMessage());
         errorMessage.setStatus(HttpStatus.BAD_REQUEST.value());
         errorMessage.setTimestamp(new Date());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);

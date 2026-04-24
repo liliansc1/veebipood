@@ -31,8 +31,25 @@ public class PersonController {
 
     @PostMapping("signup")
     public Person signup(@RequestBody Person person){
+        if (person.getId() != null) {
+            throw new RuntimeException("Cannot sign up with ID");
+        }
         personService.validate(person);
         return personRepository.save(person);
+    }
+
+    @PutMapping("profile")
+    public Person updateProfile(@RequestBody Person person){
+        if (person.getId() == null) {
+            throw new RuntimeException("Cannot update without ID");
+        }
+        personService.validate(person);
+        return personRepository.save(person);
+    }
+
+    @GetMapping("profile")
+    public Person getProfile(@RequestParam Long id) {
+        return personRepository.findById(id).orElseThrow();
     }
 
     @PostMapping("login")

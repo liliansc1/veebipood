@@ -19,14 +19,14 @@ public class PersonService {
     }
 
     public void validate(Person person){
-        if (person.getId() != null){
-            throw new RuntimeException("Cannot sign up with ID");
-        }
+        //if (person.getId() != null){
+        //   throw new RuntimeException("Cannot sign up with ID");
+        //}
         if (person.getEmail() == null) {
-            throw new RuntimeException("Cannot sign up with empty email");
+            throw new RuntimeException("Email missing");
         }
         if (person.getPersonalCode() == null){
-            throw new RuntimeException("Cannot sign up with empty personal code");
+            throw new RuntimeException("Personal code missing");
         }
         if (!isValid(person.getEmail())) {
             throw new RuntimeException("Invalid email");
